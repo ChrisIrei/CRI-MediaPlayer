@@ -1,0 +1,28 @@
+# Build output
+obj/
+bin/*
+
+# Keep the WMP COM interop assemblies referenced by the .csproj (HintPath).
+# They are not restored via NuGet, so they must be committed for the build to work.
+!bin/Debug/
+bin/Debug/*
+!bin/Debug/net8.0-windows/
+bin/Debug/net8.0-windows/*
+!bin/Debug/net8.0-windows/AxInterop.WMPLib.dll
+!bin/Debug/net8.0-windows/Interop.WMPLib.dll
+
+# Visual Studio / Rider / VS Code
+.vs/
+.idea/
+.vscode/
+*.user
+*.suo
+*.userosscache
+
+# NuGet
+*.nupkg
+packages/
+
+# Logs
+*.log
+crash.log
