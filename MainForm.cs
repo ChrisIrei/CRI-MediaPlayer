@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -11,6 +12,9 @@ namespace MediaPlayerApp
         private int  _savedVolume = 75;
         private bool _shuffleOn = false;
         private bool _repeatOn  = false;
+        private readonly List<string> _playlist = new List<string>();
+        private int _playlistIndex = -1;
+        private readonly Random _shuffleRng = new Random();
         private bool _isMaximized = false;
         private bool _isFullscreen = false;
         private Point _dragStart;
@@ -71,7 +75,12 @@ namespace MediaPlayerApp
             btnNext.Click  += BtnNext_Click;
 
             btnShuffle.Click += (s, e) => { _shuffleOn = !_shuffleOn; btnShuffle.Toggled = _shuffleOn; };
-            btnRepeat.Click  += (s, e) => { _repeatOn  = !_repeatOn;  btnRepeat.Toggled  = _repeatOn; };
+            btnRepeat.Click  += (s, e) =>
+            {
+                _repeatOn = !_repeatOn;
+                btnRepeat.Toggled = _repeatOn;
+                try { axWindowsMediaPlayer.settings.setMode("loop", _repeatOn); } catch { }
+            };
 
             btnMute.Click += BtnMute_Click;
             lblVolumeIcon.Click += BtnMute_Click;
